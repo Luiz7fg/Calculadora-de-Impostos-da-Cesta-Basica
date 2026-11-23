@@ -46,3 +46,50 @@ def economia_total(itens):
         for item in itens
     )
     return round(imposto_padrao - total_impostos(itens), 2)
+
+
+def criar_calculadora(aliquota_padrao):
+    if aliquota_padrao < 0:
+        raise ValueError("A alíquota padrão não pode ser negativa.")
+
+    taxas = {
+        "cesta_basica": 0.0,
+        "reduzido": aliquota_padrao * 0.40,
+        "padrao": aliquota_padrao,
+    }
+
+    def calcular(item):
+        try:
+            taxa = taxas[item.categoria]
+        except KeyError:
+            raise ValueError(f"Categoria inválida: {item.categoria!r}.") from None
+
+        imposto_unitario = round(item.preco * taxa, 2)
+        return round(imposto_unitario * item.quantidade, 2)
+
+    return calcular
+
+
+def compor(*funcoes):
+    from functools import reduce
+
+    def composta(valor):
+        return reduce(
+            lambda resultado, funcao: funcao(resultado),
+            reversed(funcoes),
+            valor,
+        )
+
+    return composta
+
+
+def gerar_relatorio(itens):
+    return {
+        "por_categoria": {
+            categoria: total_compra(filtrar_por_categoria(itens, categoria))
+            for categoria in ALIQUOTAS
+        },
+        "total_impostos": total_impostos(itens),
+        "total": total_compra(itens),
+        "economia": economia_total(itens),
+    }
