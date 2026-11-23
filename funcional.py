@@ -1,7 +1,3 @@
-Chefe, a opção de salvar direto na `main` está certa. **Clica em Cancel primeiro**. Pelo print, o editor atrás da janela parece estar vazio.
-
-Cole este código no editor do **`funcional.py`**:
-
 ```python
 from collections import namedtuple
 
@@ -52,5 +48,3 @@ def economia_total(itens):
     )
     return round(imposto_padrao - total_impostos(itens), 2)
 ```
-
-Depois, abra **Commit changes** de novo, escreva `Completa a Semana 3` no campo **Commit message**, deixe a primeira opção marcada e clique no botão verde. Na aba **Actions**, confira o resultado dos testes da Semana 3.
