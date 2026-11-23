@@ -1,4 +1,3 @@
-```python
 from collections import namedtuple
 
 
@@ -47,4 +46,3 @@ def economia_total(itens):
         for item in itens
     )
     return round(imposto_padrao - total_impostos(itens), 2)
-```
